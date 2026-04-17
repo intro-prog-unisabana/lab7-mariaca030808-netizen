@@ -35,33 +35,35 @@ def encrypt_passwords_in_file(filename: str) -> None:
         writer.writerows(rows)
 
 if __name__ == "__main__":
-    encrypt_passwords_in_file("examples/example2.txt")
+    encrypt_passwords_in_file("examples/example2.csv")
 
 #Parte 3
 
 def change_password(filename: str, website: str, password: str) -> bool:
     """TODO: Parte 3."""
     fila= []
-    with open(filename, "r", newline="") as f:
+    with open(filename, "r") as f:
         lector= csv.reader(f)
-        for fila in lector:
-            if fila:
-                fila.append(fila)
-    if True:
-        for numero, fila in enumerate(fila):
-            if numero== 0:
-                continue
-            if len(fila) >= 1 and fila[0] == website:
-                if len(fila) < 3:
-                    fila += [""] * (3 - len(fila))
-                fila[2]= caesar_encrypt(password)
-                break
-    with open(filename, "w", newline="") as f:
+        for linea in lector:
+            if linea:
+                fila.append(linea)
+    found= False
+    for num in range(len(fila)):
+        if num == 0:
+            continue 
+        if fila[num][0]== website:
+            fila[num][2]= caesar_encrypt(password)
+            found= True
+            break
+    if not found:
+        return False
+
+    with open(filename, "w") as f:
         escritor= csv.writer(f)
         escritor.writerows(fila)
+        return True
 
-    return True
-
+#Parte 4
 
 def add_login(filename: str, website_name: str, username: str, password: str) -> None:
     """TODO: Parte 4."""
