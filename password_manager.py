@@ -64,9 +64,8 @@ def change_password(filename: str, website: str, password: str) -> bool:
         return True
 
 #Parte 4
-
 def add_login(filename: str, website_name: str, username: str, password: str) -> None:
     """TODO: Parte 4."""
-    with open(filename, "a", newline="") as f:
-        writer = csv.writer(f)
-        writer.writerow([website_name, username, caesar_encrypt(password)])
+    with open(filename, "a") as fff:
+        escritor= csv.writer(fff)
+        escritor.writerow([website_name, username, caesar_encrypt(password)])
